@@ -1,3 +1,5 @@
+# tech
+https://javascript.plainenglish.io/creating-a-rest-api-with-jwt-authentication-and-role-based-authorization-using-typescript-fbfa3cab22a4
 # dreamlands
 ## world story
 People are living in a normal world, but there are infinite number of worlds awaiting you. You can go there and use it to affect other worlds, but beware, the other worlds can also affect you. 
