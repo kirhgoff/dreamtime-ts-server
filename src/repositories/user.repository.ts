@@ -1,22 +1,28 @@
 import { getRepository } from "typeorm";
 import { User } from "../models";
 
-export interface IUserPayload {
+// TODO: merge with types in controllers or make types file
+export type CreateUserData = {
   fullName: string;
   email: string;
+  password: string;
 }
 
 export const getUsers = async (): Promise<Array<User>> => {
   const userRepository = getRepository(User);
-  return userRepository.find();
+  const users = userRepository.find({
+    select: ["fullName", "email"] 
+  });
+  return users;
 };
 
-export const createUser = async (payload: IUserPayload): Promise<User> => {
+export const createUser = async (payload: CreateUserData): Promise<User> => {
   const userRepository = getRepository(User);
   const user = new User();
   return userRepository.save({
     ...user,
     ...payload,
+    role: 'user'
   });
 };
 
