@@ -12,31 +12,41 @@ import {
 } from "../repositories/user.repository";
 
 interface UserPreview {
+  id: string | null, // TODO: make it signed id
   fullName: string;
   email: string;
+}
+
+// TODO: ask Rico if this could be expressed better in Typescript
+function buildUserPreview(user: User | null) : UserPreview {
+  return {
+    id: String(user?.id), 
+    email: user?.email ?? 'nomail@example.ru', 
+    fullName: user?.fullName ?? 'MrInvalid'
+  }
 }
 
 @Route("users")
 @Tags("User")
 export default class UserController {
+
   @Get("/")
   public async getUsers(): Promise<Array<UserPreview>> {
-    const users = (await getUsers())
-      // TODO: ask Rico if this could be expressed better in Typescript
-      .map(user => ({email: user.email, fullName: user.fullName}));
-    console.log(">>> Users: " + JSON.stringify(users))
-    return users;
+    return (await getUsers()).map(user => buildUserPreview(user));
   }
 
   @Post("/")
   public async createUser(@Body() body: CreateUserData): Promise<UserPreview> {
-    return createUser(body);
+    return buildUserPreview(await createUser(body));
   }
 
   @Get("/:id")
   public async getUser(@Path() id: string): Promise<UserPreview | null> {
-    return getUser(Number(id));
+    return buildUserPreview(await getUser(Number(id)));
   }
+}
+
+
 
   // static listAll = async (req: Request, res: Response) => {
   //   //Get users from database
@@ -146,4 +156,3 @@ export default class UserController {
   //   //After all send a 204 (no content, but accepted) response
   //   res.status(204).send();
   // };
-}

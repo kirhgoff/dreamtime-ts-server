@@ -11,24 +11,28 @@ export type CreateUserData = {
 export const getUsers = async (): Promise<Array<User>> => {
   const userRepository = getRepository(User);
   const users = userRepository.find({
-    select: ["fullName", "email"] 
+    select: ["id", "fullName", "email"] 
   });
   return users;
 };
 
 export const createUser = async (payload: CreateUserData): Promise<User> => {
   const userRepository = getRepository(User);
-  const user = new User();
-  return userRepository.save({
-    ...user,
-    ...payload,
-    role: 'user'
-  });
+  
+  const user = new User(); 
+  user.email = payload.fullName,
+  user.fullName = payload.fullName
+  user.password = payload.password
+  user.role = "user"
+
+  return userRepository.save({...user});
 };
 
 export const getUser = async (id: number): Promise<User | null> => {
-  const userRepository = getRepository(User);
-  const user = await userRepository.findOne({ id: id });
-  if (!user) return null;
-  return user;
+  return await getRepository(User).findOne({ 
+    select: ["id", "fullName", "email"],
+    where: {
+      id: id,
+    }
+  }) ?? null;
 };
