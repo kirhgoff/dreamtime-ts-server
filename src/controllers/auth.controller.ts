@@ -64,7 +64,7 @@ class AuthController {
       return res.status(400).send(errors);
     }
 
-    user.hashPassword();
+    user.hashPassword(newPassword);
     userRepository.save(user);
 
     res.status(204).send();

@@ -33,8 +33,8 @@ import {
     updatedAt!: Date;
 
     // TODO: use async and check if this is up to date
-    hashPassword() {
-      this.password = bcrypt.hashSync(this.password, 8);
+    hashPassword(value: string) {
+      this.password = bcrypt.hashSync(value, 8);
     }
 
     checkIfUnencryptedPasswordIsValid(unencryptedPassword: string) {

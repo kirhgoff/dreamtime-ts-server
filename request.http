@@ -14,9 +14,9 @@ POST http://localhost:8000/users/
 content-type: application/json
 
 {
-    "fullName": "First",
-    "email": "first@example.com",
-    "password":"111"
+    "fullName": "Second",
+    "email": "second@example.com",
+    "password":"222"
 }
 
 ### 
@@ -24,6 +24,6 @@ POST http://localhost:8000/auth/login
 content-type: application/json
 
 {
-    "email": "first@example.com",
-    "password":"111"
+    "email": "second@example.com",
+    "password":"222"
 }

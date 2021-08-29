@@ -22,7 +22,7 @@ export const createUser = async (payload: CreateUserData): Promise<User> => {
   const user = new User(); 
   user.email = payload.email,
   user.fullName = payload.fullName
-  user.password = payload.password
+  user.hashPassword(payload.password)
   user.role = "user"
 
   return userRepository.save({...user});
@@ -35,7 +35,6 @@ export const getUser = async (id: number): Promise<User | null> => {
   }) ?? null;
 };
 
-// TODO: ask Rico how to fix that
 export const deleteUser = async (id: number): Promise<User | null> => {
   let repository = await getRepository(User)
   const user = repository.findOne({ 
@@ -45,6 +44,7 @@ export const deleteUser = async (id: number): Promise<User | null> => {
 
   await repository.delete({ id: id });
 
+  // TODO: ask Rico how to fix that
   if (typeof user == undefined ) {
     return null;
   } else {
