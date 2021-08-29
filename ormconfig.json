@@ -5,7 +5,7 @@
   "username": "postgres",
   "password": "postgres",
   "database": "gis",
-  "synchronize": true,
+  "synchronize": false,
   "logging": false,
   "entities": ["src/models/**/*.ts"],
   "migrations": ["migration/*.ts"],

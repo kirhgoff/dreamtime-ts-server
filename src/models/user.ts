@@ -8,12 +8,12 @@ import {
   } from "typeorm";
   import { Length, IsNotEmpty } from "class-validator";
 
-  @Entity()
+  @Entity("people")
   export class User {
     @PrimaryGeneratedColumn()
     id!: number;
   
-    @Column()
+    @Column({ name: 'full_name'})
     fullName!: string;
   
     @Column()
@@ -26,10 +26,10 @@ import {
     @Length(4, 100)
     password!: string;
 
-    @CreateDateColumn()
+    @CreateDateColumn({ name: 'created_at' })
     createdAt!: Date;
   
-    @UpdateDateColumn()
+    @UpdateDateColumn({ name: 'updated_at' })
     updatedAt!: Date;
 
     // TODO: use async and check if this is up to date
