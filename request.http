@@ -4,14 +4,26 @@
 GET http://localhost:8000/users
 
 ###
-GET http://localhost:8000/users/3
+GET http://localhost:8000/users/9
+
+###
+DELETE http://localhost:8000/users/9
 
 ###
 POST http://localhost:8000/users/
 content-type: application/json
 
 {
-    "fullName": "Petrere",
-    "email": "@gddpeterovig.com",
-    "password":"ddd"
+    "fullName": "First",
+    "email": "first@example.com",
+    "password":"111"
+}
+
+### 
+POST http://localhost:8000/auth/login
+content-type: application/json
+
+{
+    "email": "first@example.com",
+    "password":"111"
 }

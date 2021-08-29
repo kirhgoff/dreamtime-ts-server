@@ -8,9 +8,9 @@ import config from "../config/config";
 
 class AuthController {    
   static login = async (req: Request, res: Response) => {
-    let { username, password } = req.body;
-
-    if (!(username && password)) {
+    let { email, password } = req.body;
+    console.log(">>> AuthController.login username: " + email);
+    if (!(email && password)) {
       return res.status(400).send();
     }
 
@@ -18,12 +18,14 @@ class AuthController {
     const userRepository = getRepository(User);
     let user;    
     try {
-      user = await userRepository.findOneOrFail({ where: { username } });
+      user = await userRepository.findOneOrFail({ where: { email: email } });
     } catch (error) {
+      console.log(">>> Cant find username")
       return res.status(401).send();
     }
 
     if (!user.checkIfUnencryptedPasswordIsValid(password)) {
+      console.log(">>> Passwords are not equal")
         return res.status(401).send();
     }
   

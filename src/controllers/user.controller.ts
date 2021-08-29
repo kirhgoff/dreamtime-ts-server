@@ -8,6 +8,7 @@ import {
   getUsers,
   createUser,
   getUser,
+  deleteUser,
   CreateUserData
 } from "../repositories/user.repository";
 
@@ -38,6 +39,11 @@ export default class UserController {
   @Post("/")
   public async createUser(@Body() body: CreateUserData): Promise<UserPreview> {
     return buildUserPreview(await createUser(body));
+  }
+
+  @Post("/")
+  public async deleteUser(@Path() id: string): Promise<UserPreview> {
+    return buildUserPreview(await deleteUser(Number(id)));
   }
 
   @Get("/:id")
