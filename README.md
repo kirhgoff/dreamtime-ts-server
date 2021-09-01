@@ -1,3 +1,7 @@
+# tech
+https://javascript.plainenglish.io/creating-a-rest-api-with-jwt-authentication-and-role-based-authorization-using-typescript-fbfa3cab22a4
+
+https://rsbh.dev/blog/rest-api-express-postgres-typeorm
 # dreamlands
 ## world story
 People are living in a normal world, but there are infinite number of worlds awaiting you. You can go there and use it to affect other worlds, but beware, the other worlds can also affect you. 
@@ -27,5 +31,7 @@ Player could be passive and just observe what is going on, following a community
  If a player has enough energy () in time , or he/she can enter the dream world 
  #### Latent mode
 
-###  Admin functionaluty
+###  Core functionality
+
+
   
