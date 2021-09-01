@@ -36,18 +36,18 @@ export const getUser = async (id: number): Promise<User | null> => {
 };
 
 export const deleteUser = async (id: number): Promise<User | null> => {
-  let repository = await getRepository(User)
-  const user = repository.findOne({ 
+  let repository = getRepository(User)
+
+  const user = await repository.findOne({ 
     select: ["id", "fullName", "email"],
     where: { id: id }
   }) ?? null;
 
-  await repository.delete({ id: id });
-
-  // TODO: ask Rico how to fix that
-  if (typeof user == undefined ) {
-    return null;
-  } else {
-    return user as Promise<User>
-  }
+  return repository.delete({ id: id }).then(_ => {
+    if (typeof user == undefined ) {
+      return null;
+    } else {
+      return user;
+    }  
+  });
 };

@@ -13,7 +13,7 @@ import {
 } from "../repositories/user.repository";
 
 interface UserPreview {
-  id: string | null, // TODO: make it signed id
+  id: string | null; // TODO: make it signed id
   fullName: string;
   email: string;
 }
