@@ -39,19 +39,32 @@ content-type: application/json
 POST http://localhost:8000/objects/
 content-type: application/json
 
-{
-  "type": "beep",
-  "lat": -37.868284,
-  "long": 145.022335,
-  "owner_id": 0,
-  "data": "meme02"
-}
+{ "type": "pillar", "lat": -37.8642102, "long": 144.9863379, "owner_id": 0, "data": "boozer" }
+
+###
+POST http://localhost:8000/objects/
+content-type: application/json
+
+{ "type": "pillar", "lat": -37.8605299, "long": 144.9857853, "owner_id": 0, "data": "daeta" }
+
+### very close
+POST http://localhost:8000/objects/
+content-type: application/json
+
+{ "type": "pillar", "lat":-37.86075278053331, "long": 144.98650686324612, "owner_id": 0, "data": "buddy" }
+
 
 ###
 GET http://localhost:8000/objects
 
 ###
-GET http://localhost:8000/objects/1
+GET http://localhost:8000/objects/3
 
 ###
-DELETE http://localhost:8000/objects/1
+DELETE http://localhost:8000/objects/2
+
+### Check around alma road
+POST http://localhost:8000/objects/range
+content-type: application/json
+
+{ "lat": -37.8606125, "long": 144.9861461, "range": 1000 }
