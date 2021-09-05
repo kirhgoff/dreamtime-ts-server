@@ -1,10 +1,11 @@
-import { Column, Entity, Index, PrimaryGeneratedColumn} from 'typeorm';
+import { Column, Entity, Index, PrimaryGeneratedColumn, ManyToOne} from 'typeorm';
 import { Geometry, Point } from 'geojson';
 import { Length, IsNotEmpty } from "class-validator";
+import { User } from './user'
 
 // https://stackoverflow.com/questions/67435650/storing-geojson-points-and-finding-points-within-a-given-distance-radius-nodej/67557083#67557083
-@Entity({ name: 't_test_location' })
-export class Object {
+@Entity({ name: 'world_objects' })
+export class WorldObject {
   @PrimaryGeneratedColumn('increment')
   id!: number;
   
@@ -26,4 +27,11 @@ export class Object {
     nullable: true,
   })
   location!: Point
+
+  @ManyToOne(() => User)
+  owner!: User;
+
+  @Column()
+  @Length(0, 256)
+  data!: string;
 }
