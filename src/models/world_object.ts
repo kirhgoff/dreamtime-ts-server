@@ -8,7 +8,7 @@ import { User } from './user'
 export class WorldObject {
   @PrimaryGeneratedColumn('increment')
   id!: number;
-  
+
   @Column()
   @Length(3, 100)
   type!: string;
@@ -22,14 +22,14 @@ export class WorldObject {
   @Index({ spatial: true })
   @Column({
     type: 'geography',
-    spatialFeatureType: 'Point', 
+    spatialFeatureType: 'Point',
     srid: 4326,
     nullable: true,
   })
   location!: Point
 
-  @ManyToOne(() => User)
-  owner!: User;
+  // @ManyToOne(() => User)
+  // owner!: User;
 
   @Column()
   @Length(0, 256)

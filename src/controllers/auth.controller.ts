@@ -6,7 +6,9 @@ import { validate } from "class-validator";
 import { User } from "../models";
 import config from "../config/config";
 
-class AuthController {    
+// We are not using tsoa here, but its ok - the whole controller here
+// is checking the request params
+class AuthController {
   static login = async (req: Request, res: Response) => {
     let { email, password } = req.body;
     console.log(">>> AuthController.login username: " + email);
@@ -16,7 +18,7 @@ class AuthController {
 
     // TODO: user UserRepository
     const userRepository = getRepository(User);
-    let user;    
+    let user;
     try {
       user = await userRepository.findOneOrFail({ where: { email: email } });
     } catch (error) {
@@ -28,7 +30,7 @@ class AuthController {
       console.log(">>> Passwords are not equal")
         return res.status(401).send();
     }
-  
+
     const token = jwt.sign(
       { userId: user.id, email: user.email },
       config.jwtSecret,

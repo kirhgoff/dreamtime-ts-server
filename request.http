@@ -1,4 +1,15 @@
+#############################################
+# Users
 
+###
+POST http://localhost:8000/users/
+content-type: application/json
+
+{
+  "fullName": "Second",
+  "email": "second@example.com",
+  "password":"222"
+}
 
 ###
 GET http://localhost:8000/users
@@ -9,17 +20,10 @@ GET http://localhost:8000/users/9
 ###
 DELETE http://localhost:8000/users/9
 
+#############################################
+# Auth
+
 ###
-POST http://localhost:8000/users/
-content-type: application/json
-
-{
-    "fullName": "Second",
-    "email": "second@example.com",
-    "password":"222"
-}
-
-### 
 POST http://localhost:8000/auth/login
 content-type: application/json
 
@@ -27,3 +31,27 @@ content-type: application/json
     "email": "second@example.com",
     "password":"222"
 }
+
+#############################################
+# Objects
+
+###
+POST http://localhost:8000/objects/
+content-type: application/json
+
+{
+  "type": "beep",
+  "lat": -37.868284,
+  "long": 145.022335,
+  "owner_id": 0,
+  "data": "meme02"
+}
+
+###
+GET http://localhost:8000/objects
+
+###
+GET http://localhost:8000/objects/1
+
+###
+DELETE http://localhost:8000/objects/1
