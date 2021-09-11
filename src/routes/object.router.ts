@@ -29,8 +29,8 @@ router.delete("/:id", async (req, res) => {
   return res.send(response);
 });
 
-router.post("/range", async (req, res) => {
-  const response = await new ObjectController().getRange(req.body);
+router.post("/around", async (req, res) => {
+  const response = await new ObjectController().getSurroundings(req.body);
   return res.send(response);
 });
 

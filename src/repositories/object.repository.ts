@@ -60,12 +60,13 @@ export const deleteObject = async (id: number): Promise<WorldObject | null> => {
   });
 };
 
-export const getRange = async (lat: number, long: number, range: number = 1000) => {
+// TODO: change to have only userId in params
+export const getSurroundings = async (lat: number, long: number, range: number = 100): Promise<WorldObject[]> => {
   let origin = { type: "Point", coordinates: [long, lat]};
   return await getRepository(WorldObject)
       .createQueryBuilder('world_objects')
       .select([
-          'world_objects.id',
+          'world_objects.*',
           'ST_Distance(location, ST_SetSRID(ST_GeomFromGeoJSON(:origin), ST_SRID(location))) AS distance'
       ])
       .where("ST_DWithin(location, ST_SetSRID(ST_GeomFromGeoJSON(:origin), ST_SRID(location)), :range)")

@@ -64,7 +64,7 @@ GET http://localhost:8000/objects/3
 DELETE http://localhost:8000/objects/2
 
 ### Check around alma road
-POST http://localhost:8000/objects/range
+POST http://localhost:8000/objects/around
 content-type: application/json
 
-{ "lat": -37.8606125, "long": 144.9861461, "range": 1000 }
+{ "lat": -37.8606125, "long": 144.9861461 }

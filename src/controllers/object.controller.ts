@@ -7,7 +7,7 @@ import {
   deleteObject,
   getObject,
   CreateObjectData,
-  getRange
+  getSurroundings
 } from "../repositories/object.repository";
 
 interface ObjectPreview {
@@ -16,6 +16,10 @@ interface ObjectPreview {
   lat: number,
   long: number,
   data: string
+}
+
+interface UserWorldView {
+  objects: ObjectPreview[]
 }
 
 function buildObjectPreview(user: WorldObject | null) : ObjectPreview {
@@ -53,13 +57,16 @@ export default class ObjectController {
   }
 
   // TODO: extract type or leave?
-  @Post("/range")
-  public async getRange(@Body() body: {
+  @Post("/around")
+  public async getSurroundings(@Body() body: {
     lat: number,
     long: number,
     range: number
-  }) {
-    console.log(`>>> Received getRange: lat: ${JSON.stringify(body)}`);
-    return await getRange(body.lat, body.long, body.range);
+  }): Promise<UserWorldView> {
+    // could add a range for to the returned object
+    const objects = (await getSurroundings(body.lat, body.long, body.range))
+        .map(object => buildObjectPreview(object));
+
+    return { objects: objects };
   }
 }
