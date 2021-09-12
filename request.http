@@ -58,6 +58,9 @@ content-type: application/json
 GET http://localhost:8000/objects
 
 ###
+GET http://54.252.63.78:8000/objects
+
+###
 GET http://localhost:8000/objects/3
 
 ###

@@ -18,7 +18,7 @@ app.use(express.json());
 app.use(morgan("tiny"));
 app.use(express.static("public"));
 
-app.use(Router);
+app.use('/api/v1', Router);
 
 createConnection(dbConfig)
   .then(_connection => {
