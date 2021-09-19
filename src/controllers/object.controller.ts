@@ -7,7 +7,8 @@ import {
   deleteObject,
   getObject,
   CreateObjectData,
-  getSurroundings
+  getSurroundings,
+  getSurroundings2, WorldObjectWithDistance
 } from "../repositories/object.repository";
 
 interface ObjectPreview {
@@ -18,8 +19,21 @@ interface ObjectPreview {
   data: string
 }
 
+interface ObjectPreviewWithDistance {
+  id: string; // TODO: make it signed id
+  type: string,
+  lat: number,
+  long: number,
+  data: string,
+  distance: number;
+}
+
 interface UserWorldView {
   objects: ObjectPreview[]
+}
+
+interface UserWorldView2 {
+  objects: ObjectPreviewWithDistance[]
 }
 
 function buildObjectPreview(user: WorldObject | null) : ObjectPreview {
@@ -31,6 +45,18 @@ function buildObjectPreview(user: WorldObject | null) : ObjectPreview {
     data: String(user?.data)
   }
 }
+
+function buildObjectPreview2(user: WorldObjectWithDistance | null) : ObjectPreviewWithDistance {
+  return {
+    id: String(user?.id),
+    type: String(user?.type),
+    lat: Number(user?.lat),
+    long: Number(user?.long),
+    data: String(user?.data),
+    distance: Number(user?.distance)
+  }
+}
+
 
 @Route("objects")
 @Tags("Object")
@@ -66,6 +92,19 @@ export default class ObjectController {
     // could add a range for to the returned object
     const objects = (await getSurroundings(body.lat, body.long, body.range))
         .map(object => buildObjectPreview(object));
+
+    return { objects: objects };
+  }
+
+  @Post("/around")
+  public async getSurroundings2(@Body() body: {
+    lat: number,
+    long: number,
+    range: number
+  }): Promise<UserWorldView2> {
+    // could add a range for to the returned object
+    const objects = (await getSurroundings2(body.lat, body.long, body.range))
+        .map(object => buildObjectPreview2(object));
 
     return { objects: objects };
   }

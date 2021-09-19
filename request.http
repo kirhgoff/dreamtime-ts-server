@@ -78,7 +78,7 @@ content-type: application/json
 @hostport = {{baseurl}}/api/v1
 
 ###
-POST http://{{hostport}}/objects/
+POST http://{{baseurl}}/objects/
 content-type: application/json
 
 { "type": "pillar", "lat": -37.8642102, "long": 144.9863379, "owner_id": 0, "data": "boozer" }
@@ -93,20 +93,17 @@ content-type: application/json
 POST http://{{baseurl}}/objects/
 content-type: application/json
 
-{ "type": "pillar", "lat":-37.86075278053331, "long": 144.98650686324612, "owner_id": 0, "data": "buddy" }
+{ "type": "pillar", "lat":-37.86075278053331, "long": 144.98650686324612, "owner_id": 0, "data": "buddy2222" }
 
 
 ###
 GET http://{{baseurl}}/objects
 
 ###
-GET http://54.252.63.78:8000/objects
-
-###
 GET http://{{baseurl}}/objects/3
 
 ###
-DELETE http://{{baseurl}}/objects/2
+DELETE http://{{baseurl}}/objects/11
 
 ### Check around alma road
 POST http://{{baseurl}}/objects/around

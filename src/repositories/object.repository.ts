@@ -12,6 +12,16 @@ export type CreateObjectData = {
   data: string;
 }
 
+export type WorldObjectWithDistance = {
+  id: string;
+  type: string;
+  lat: number;
+  long: number;
+  ownerId: number;
+  data: string;
+  distance: number;
+}
+
 export const getObjects = async (): Promise<Array<WorldObject>> => {
   return await getRepository(WorldObject).find();
 };
@@ -60,20 +70,30 @@ export const deleteObject = async (id: number): Promise<WorldObject | null> => {
   });
 };
 
-// TODO: change to have only userId in params
-export const getSurroundings = async (lat: number, long: number, range: number = 100): Promise<WorldObject[]> => {
-  let origin = { type: "Point", coordinates: [long, lat]};
+async function getSqlObjects(origin: { coordinates: number[]; type: string }, range: number) {
   return await getRepository(WorldObject)
       .createQueryBuilder('world_objects')
       .select([
-          'world_objects.*',
-          'ST_Distance(location, ST_SetSRID(ST_GeomFromGeoJSON(:origin), ST_SRID(location))) AS distance'
+        'world_objects.*',
+        'ST_Distance(location, ST_SetSRID(ST_GeomFromGeoJSON(:origin), ST_SRID(location))) AS distance'
       ])
       .where("ST_DWithin(location, ST_SetSRID(ST_GeomFromGeoJSON(:origin), ST_SRID(location)), :range)")
-      .orderBy("distance","ASC")
+      .orderBy("distance", "ASC")
       .setParameters({
         origin: JSON.stringify(origin),
         range: range
       })
       .getRawMany();
 }
+
+// TODO: change to have only userId in params
+export const getSurroundings = async (lat: number, long: number, range: number = 100): Promise<WorldObject[]> => {
+  let origin = { type: "Point", coordinates: [long, lat]};
+  return await getSqlObjects(origin, range);
+}
+
+export const getSurroundings2 = async (lat: number, long: number, range: number = 100): Promise<WorldObjectWithDistance[]> => {
+  let origin = { type: "Point", coordinates: [long, lat]};
+  return await getSqlObjects(origin, range);
+}
+

@@ -34,4 +34,9 @@ router.post("/around", async (req, res) => {
   return res.send(response);
 });
 
+router.post("/around2", async (req, res) => {
+  const response = await new ObjectController().getSurroundings2(req.body);
+  return res.send(response);
+});
+
 export default router;
