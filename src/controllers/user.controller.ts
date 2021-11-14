@@ -18,7 +18,6 @@ interface UserPreview {
   email: string;
 }
 
-// TODO: ask Rico if this could be expressed better in Typescript
 function buildUserPreview(user: User | null) : UserPreview {
   return {
     id: String(user?.id), 

@@ -1,29 +1,112 @@
-
-
-###
-GET http://localhost:8000/users
+#############################################
+# Users
 
 ###
-GET http://localhost:8000/users/9
-
-###
-DELETE http://localhost:8000/users/9
-
-###
-POST http://localhost:8000/users/
+POST http://{{baseurl}}/users/
 content-type: application/json
 
 {
-    "fullName": "Second",
+  "fullName": "Second",
+  "email": "second@example.com",
+  "password":"222"
+}
+
+###
+GET http://{{baseurl}}/users
+
+###
+GET http://{{baseurl}}/users/9
+
+###
+DELETE http://{{baseurl}}/users/9
+
+#############################################
+# Auth
+
+###
+POST http://{{baseurl}}/auth/login
+content-type: application/json
+
+{
     "email": "second@example.com",
     "password":"222"
 }
 
-### 
-POST http://localhost:8000/auth/login
+#############################################
+# Objects
+
+###
+POST http://{{baseurl}}/objects/
 content-type: application/json
 
-{
-    "email": "second@example.com",
-    "password":"222"
-}
+{ "type": "pillar", "lat": -37.8642102, "long": 144.9863379, "owner_id": 0, "data": "boozer" }
+
+###
+POST http://{{baseurl}}/objects/
+content-type: application/json
+
+{ "type": "pillar", "lat": -37.8605299, "long": 144.9857853, "owner_id": 0, "data": "daeta" }
+
+### very close
+POST http://{{baseurl}}/objects/
+content-type: application/json
+
+{ "type": "pillar", "lat":-37.86075278053331, "long": 144.98650686324612, "owner_id": 0, "data": "buddy" }
+
+
+###
+GET http://{{baseurl}}/objects
+
+###
+GET http://54.252.63.78:8000/objects
+
+###
+GET http://{{baseurl}}/objects/3
+
+###
+DELETE http://{{baseurl}}/objects/2
+
+### Check around alma road
+POST http://{{baseurl}}/objects/around
+content-type: application/json
+
+{ "lat": -37.8606125, "long": 144.9861461 }
+
+#############################################
+# Production Objects
+
+@hostport = {{baseurl}}/api/v1
+
+###
+POST http://{{baseurl}}/objects/
+content-type: application/json
+
+{ "type": "pillar", "lat": -37.8642102, "long": 144.9863379, "owner_id": 0, "data": "boozer" }
+
+###
+POST http://{{baseurl}}/objects/
+content-type: application/json
+
+{ "type": "pillar", "lat": -37.8605299, "long": 144.9857853, "owner_id": 0, "data": "daeta" }
+
+### very close
+POST http://{{baseurl}}/objects/
+content-type: application/json
+
+{ "type": "pillar", "lat":-37.86075278053331, "long": 144.98650686324612, "owner_id": 0, "data": "buddy2222" }
+
+
+###
+GET http://{{baseurl}}/objects
+
+###
+GET http://{{baseurl}}/objects/3
+
+###
+DELETE http://{{baseurl}}/objects/11
+
+### Check around alma road
+POST http://{{baseurl}}/objects/around
+content-type: application/json
+
+{ "lat": -37.8606125, "long": 144.9861461 }
